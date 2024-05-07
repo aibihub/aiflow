@@ -5,28 +5,28 @@ services:
     image: aiflowhub/aiflow-api:0.6.5
     restart: always
     environment:
-      # Startup mode, 'api' starts the API server.
-      MODE: api
+      # Startup mode, 'aiflow' starts the API server.
+      MODE: aiflow
       # The log level for the application. Supported values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`
       LOG_LEVEL: INFO
       # A secret key that is used for securely signing the session cookie and encrypting sensitive information on the database. You can generate a strong key using `openssl rand -base64 42`.
       SECRET_KEY: sk-9f73s3ljTXVcMT3Blb3ljTqtsKiGHXVcMT3BlbkFJLK7U
       # The base URL of console application web frontend, refers to the Console base URL of WEB service if console domain is
-      # different from api or web app domain.
+      # different from aiflow or web app domain.
       CONSOLE_WEB_URL: ''
       # Password for admin user initialization.
       # If left unset, admin user will not be prompted for a password when creating the initial admin account.
       INIT_PASSWORD: ''
-      # The base URL of console application api server, refers to the Console base URL of WEB service if console domain is
-      # different from api or web app domain.
+      # The base URL of console application aiflow server, refers to the Console base URL of WEB service if console domain is
+      # different from aiflow or web app domain.
       # example: http://cloud.aiflowhub.com
       CONSOLE_API_URL: ''
-      # The URL prefix for Service API endpoints, refers to the base URL of the current API service if api domain is
+      # The URL prefix for Service API endpoints, refers to the base URL of the current API service if aiflow domain is
       # different from console domain.
       # example: http://api.aiflowhub.com
       SERVICE_API_URL: ''
       # The URL prefix for Web APP frontend, refers to the Web App base URL of WEB service if web app domain is different from
-      # console or api domain.
+      # console or aiflow domain.
       APP_WEB_URL: ''
       # File preview or download Url prefix.
       # used to display File preview or download Url to the front-end or as Multi-model inputs;
@@ -129,7 +129,7 @@ services:
       SMTP_USERNAME: ''
       SMTP_PASSWORD: ''
       SMTP_USE_TLS: 'true'
-      # the api-key for resend (https://resend.com)
+      # the aiflow-key for resend (https://resend.com)
       RESEND_API_KEY: ''
       RESEND_API_URL: https://api.resend.com
       # The DSN for Sentry error reporting. If not set, Sentry error reporting will be disabled.
@@ -153,8 +153,8 @@ services:
       - redis
     volumes:
       # Mount the storage directory to the container, for storing user files.
-      - ./volumes/app/storage:/app/api/storage
-    # uncomment to expose aiflow-api port to host
+      - ./volumes/app/storage:/app/aiflow/storage
+    # uncomment to expose aiflow-aiflow port to host
     # ports:
     #   - "5001:5001"
 
@@ -167,7 +167,7 @@ services:
       # Startup mode, 'worker' starts the Celery worker for processing the queue.
       MODE: worker
 
-      # --- All the configurations below are the same as those in the 'api' service. ---
+      # --- All the configurations below are the same as those in the 'aiflow' service. ---
 
       # The log level for the application. Supported values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`
       LOG_LEVEL: INFO
@@ -235,7 +235,7 @@ services:
       MAIL_TYPE: ''
       # default send from email address, if not specified
       MAIL_DEFAULT_SEND_FROM: 'YOUR EMAIL FROM (eg: no-reply <no-reply@aiflow.ai>)'
-      # the api-key for resend (https://resend.com)
+      # the aiflow-key for resend (https://resend.com)
       RESEND_API_KEY: ''
       RESEND_API_URL: https://api.resend.com
       # relyt configurations
@@ -249,19 +249,19 @@ services:
       - redis
     volumes:
       # Mount the storage directory to the container, for storing user files.
-      - ./volumes/app/storage:/app/api/storage
+      - ./volumes/app/storage:/app/aiflow/storage
 
   # Frontend web application.
   web:
     image: aiflowhub/aiflow-web:0.6.5
     restart: always
     environment:
-      # The base URL of console application api server, refers to the Console base URL of WEB service if console domain is
-      # different from api or web app domain.
+      # The base URL of console application aiflow server, refers to the Console base URL of WEB service if console domain is
+      # different from aiflow or web app domain.
       # example: http://cloud.aiflow.ai
       CONSOLE_API_URL: ''
-      # The URL for Web APP api server, refers to the Web App base URL of WEB service if web app domain is different from
-      # console or api domain.
+      # The URL for Web APP aiflow server, refers to the Web App base URL of WEB service if web app domain is different from
+      # console or aiflow domain.
       # example: http://uaiflow.app
       APP_API_URL: ''
       # The DSN for Sentry error reporting. If not set, Sentry error reporting will be disabled.
@@ -349,7 +349,7 @@ services:
   # Qdrant vector store.
   # uncomment to use qdrant as vector store.
   # (if uncommented, you need to comment out the weaviate service above,
-  # and set VECTOR_STORE to qdrant in the api & worker service.)
+  # and set VECTOR_STORE to qdrant in the aiflow & worker service.)
   # qdrant:
   #   image: aiflowhub/qdrant:v1.7.3
   #   restart: always
